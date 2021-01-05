@@ -1,6 +1,9 @@
 // Event handler for form submission
 const calculateResults = function(evt) {
   evt.preventDefault();
+
+  //Hide the previous loan results by adding d-none class
+  document.querySelector('#results').classList.add('d-none');
   
   //Get user inputs
   const loanAmount = evt.target.querySelector('#amount').value;

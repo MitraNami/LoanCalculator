@@ -7,7 +7,8 @@ const calculateResults = function(evt) {
   const interest = evt.target.querySelector('#interest').value;
   const years = evt.target.querySelector('#years').value;
 
-  //Make Sure all the fields have values
+  //Make Sure all the fields have positive values
+  
   
 
   //Get the elements into which you want to place the calculated values
@@ -26,6 +27,10 @@ const calculateResults = function(evt) {
   const monthlyPayment = totalPayment / 12;
 
   //Dispaly the results
+  const resultsEl = document.querySelector('#results');
+  //Reomve this element's d-none class
+  resultsEl.classList.remove('d-none');
+  //Put the calculated values into the input fields
   monthlyPaymentEl.value = monthlyPayment;
   totalPaymentEl.value = totalPayment;
   totalInterestEl.value = totalInterest;

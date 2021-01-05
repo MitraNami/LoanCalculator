@@ -27,8 +27,38 @@ const calculateResults = function(evt) {
     totalInterest} = 
   calculateLoanParameters(principal, interestRate, numberOfYears);
 
-  //Dispaly the results
+  //Dispaly loading image first, then replace it with the loan results
+  showResults(monthlyPayment, totalPayment, totalInterest);
+};
 
+
+
+// Returns loan results based on the amount of money lent(principal), yearly interest rate and number of years you want to make payments
+const calculateLoanParameters = function(principal, interestRate, numberOfYears) {
+  const x = Math.pow(1 + interestRate, numberOfYears);
+  const totalPayment = principal * x;
+  const totalInterest = totalPayment - principal;
+  const monthlyPayment = totalPayment / 12;
+  return {totalPayment, totalInterest, monthlyPayment};
+};
+
+
+
+// Dispalys the loading image first, then replaces it with the loan results
+const showResults = function(monthlyPayment, totalPayment, totalInterest) {
+  //Display the image
+  const loadingImg = document.querySelector('#loading');
+  loadingImg.classList.remove('d-none');
+  //After 3 seconds display the results
+  setTimeout(() => {
+    loadingImg.classList.add('d-none');
+    showLoanResults(monthlyPayment, totalPayment, totalInterest);
+  }, 3000); 
+};
+
+
+
+const showLoanResults = function(monthlyPayment, totalPayment, totalInterest) {
   //Get the elements into which you want to place the calculated values
   const monthlyPaymentEl = document.querySelector('#monthly-payment');
   const totalPaymentEl = document.querySelector('#total-payment');
@@ -46,16 +76,6 @@ const calculateResults = function(evt) {
 
 
 
-// Returns loan results based on the amount of money lent(principal), yearly interest rate and number of years you want to make payments
-const calculateLoanParameters = function(principal, interestRate, numberOfYears) {
-  const x = Math.pow(1 + interestRate, numberOfYears);
-  const totalPayment = principal * x;
-  const totalInterest = totalPayment - principal;
-  const monthlyPayment = totalPayment / 12;
-  return {totalPayment, totalInterest, monthlyPayment};
-};
-
-
 // Creates a div element to show the error message and remove it after 2 seconds
 const showError = function(msg) {
   //Create a div
@@ -71,6 +91,7 @@ const showError = function(msg) {
 
   clearError();
 };
+
 
 
 //Removes the error element after 2 seconds
